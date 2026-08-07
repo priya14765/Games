@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e, #6a11cb, #2575fc, #ff7e5f, #feb47b);
     text-align: center;
@@ -6,32 +10,81 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+.hidden {
+    display: none !important;
 }
 
 h1 {
-    font-size: 48px;
+    font-size: clamp(28px, 6vw, 48px);
     color: #fff;
     text-shadow: 2px 2px 4px #000;
+    margin: 20px 10px 10px;
+    position: relative;
+    z-index: 10;
+}
+
+#hud {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }
 
 #score {
-    font-size: 36px;
+    font-size: clamp(20px, 4vw, 32px);
     color: #ffcc00;
     font-weight: bold;
+}
+
+#misses {
+    font-size: clamp(20px, 4vw, 32px);
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+#buttons {
+    position: relative;
+    z-index: 10;
     margin-top: 10px;
 }
 
 #gameOverMessage {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 30px 40px;
     border-radius: 10px;
     color: white;
-    font-size: 30px;
     text-align: center;
+    z-index: 20;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+#gameOverMessage h2 {
+    color: #ff4d4d;
+    font-size: clamp(28px, 6vw, 36px);
+    margin: 0 0 10px;
+}
+
+#scoreFinal {
+    font-size: clamp(18px, 4vw, 24px);
+    margin: 10px 0 20px;
+}
+
+#gameOverButtons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 button {
@@ -43,13 +96,18 @@ button {
     background-color: #ff7e5f;
     color: white;
     border: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 button:hover {
     background-color: #feb47b;
 }
 
-/* Star Styling */
+button:active {
+    transform: scale(0.96);
+}
+
+/* Falling item styling */
 .star, .heart, .coin {
     position: absolute;
     width: 50px;
@@ -57,7 +115,8 @@ button:hover {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-    animation: fall linear infinite;
+    z-index: 5;
+    animation: glow 1s infinite alternate;
 }
 
 .star {
@@ -72,17 +131,12 @@ button:hover {
     background-color: gold;
 }
 
-/* Glow Effect for Stars */
-.star, .heart, .coin {
-    animation: glow 1s infinite alternate;
-}
-
 @keyframes glow {
-    0% { 
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
+    0% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
-    100% { 
-        box-shadow: 0 0 20px rgba(255, 255, 255, 1); 
+    100% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 1);
     }
 }
 
